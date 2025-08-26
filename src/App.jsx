@@ -11,11 +11,15 @@ const PDF_URL = "/proposal.pdf";
 
 export default function InvestorDeck() {
   const [page, setPage] = useState("overview");
+  const [amountRaised, setAmountRaised] = useState(500);
+
+  const TARGET_AMOUNT = 10000;
+  const raisedPercent = Math.max(0, Math.min(100, Math.round((amountRaised / TARGET_AMOUNT) * 100)));
 
   const revenueData = [
-    { name: "Template Sales", value: 49500 },
-    { name: "Subscriptions", value: 45000 },
-    { name: "Custom Services", value: 10000 },
+    { name: "Template Sales", value: 30000 },
+    { name: "Subscriptions", value: 5000 },
+    { name: "Custom Services", value: 15000 },
   ];
 
   const container = {
@@ -45,18 +49,15 @@ export default function InvestorDeck() {
             <div className="flex items-center gap-3">
               <motion.img initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} src="/logo.png" alt="Logo" className="h-9 w-9 md:h-10 md:w-10 object-contain" />
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-gray-900">Creative Framer template & Custom Services</h1>
+                <h1 className="text-lg md:text-xl font-bold text-gray-900">Creative Framer templates & Custom Services</h1>
                 <p className="text-xs md:text-sm text-gray-500">Premium, conversion‑optimized templates for faster launches</p>
               </div>
             </div>
             <div className="flex gap-2 flex-wrap">
               <NavButton id="overview" label="Overview" />
-              <NavButton id="fundraise" label="We’re Raising" />
+              <NavButton id="fundraise" label="I'm Raising" />
               <NavButton id="scale" label="Scale Plan" />
-              <NavButton id="about" label="About Founder" />
-              <a href={PDF_URL} download>
-                <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5">Download PDF</Button>
-              </a>
+              <NavButton id="about" label="About Me" />
             </div>
           </div>
         </div>
@@ -91,10 +92,10 @@ export default function InvestorDeck() {
 
                   <div className="flex flex-col justify-between">
                     <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1.5">Year 1 Revenue Projection</h3>
-                    <ResponsiveContainer width="100%" height={360}>
+                    <ResponsiveContainer width="100%" height={440}>
                       <BarChart data={revenueData}>
                         <XAxis dataKey="name" tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#E5E7EB' }} tickLine={{ stroke: '#E5E7EB' }} />
-                        <YAxis tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#E5E7EB' }} tickLine={{ stroke: '#E5E7EB' }} />
+                        <YAxis domain={[0, 45000]} tick={{ fill: '#374151', fontSize: 12 }} axisLine={{ stroke: '#E5E7EB' }} tickLine={{ stroke: '#E5E7EB' }} />
                         <Tooltip contentStyle={{ borderRadius: 12, borderColor: '#E5E7EB', background: '#FFFFFF', color: '#111827' }} />
                         <Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#111827" />
                       </BarChart>
@@ -108,11 +109,27 @@ export default function InvestorDeck() {
               <motion.section key="fundraise" variants={container} initial="hidden" animate="show" exit="exit">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <div>
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2.5">We’re Raising</h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2.5">I'm Raising</h2>
                     <p className="text-gray-800 text-sm md:text-base mb-4">
-                      Seeking <b>A$75,000</b> pre‑seed to accelerate template production, marketing, and early
+                      Seeking <b>$10,000</b> pre‑seed to accelerate template production, marketing, and early
                       subscriptions. Target runway: <b>12 months</b>. Long‑term, scale into a Creative Tech Consulting firm in Sydney, offering SaaS design systems, branding, and digital transformation services.
                     </p>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <div className="w-full max-w-xs">
+                      <div className="flex items-end justify-between mb-1">
+                        <span className="text-xs text-gray-600">Raised</span>
+                        <span className="text-xs text-gray-900 font-medium">${amountRaised.toLocaleString()} / ${TARGET_AMOUNT.toLocaleString()}</span>
+                      </div>
+                      <div className="h-2.5 w-full bg-gray-200 rounded-full overflow-hidden" role="progressbar" aria-valuemin={0} aria-valuemax={TARGET_AMOUNT} aria-valuenow={amountRaised}>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${raisedPercent}%` }}
+                          transition={{ duration: 0.5 }}
+                          className="h-full bg-black"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.section>
@@ -180,7 +197,7 @@ export default function InvestorDeck() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Obi Batbileg — Founder</h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Obi Batbileg</h2>
                     <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3.5">
                       Designer‑engineer with expertise in SaaS, front‑end (React, Next.js, Tailwind), and creative tech consulting. Experience launching web solutions for SMEs and brands in Sydney. Vision: expand into a Creative Tech Consulting firm supporting small to medium businesses in design, branding, and SaaS scalability.
                     </p>
