@@ -55,8 +55,9 @@ export default function InvestorDeck() {
             </div>
             <div className="flex gap-2 flex-wrap">
               <NavButton id="overview" label="Overview" />
-              <NavButton id="fundraise" label="I'm Raising" />
+              <NavButton id="market" label="Market Analysis" />
               <NavButton id="scale" label="Scale Plan" />
+              <NavButton id="fundraise" label="I'm Raising" />
               <NavButton id="about" label="About Me" />
             </div>
           </div>
@@ -180,6 +181,120 @@ export default function InvestorDeck() {
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" onClick={() => setPage("fundraise")}>View Raise</Button>
                     </div>
                   </div>
+                </div>
+              </motion.section>
+            )}
+
+            {page === "market" && (
+              <motion.section
+                key="market"
+                variants={container}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">📊 Market Research & Analysis</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                  {/* Left Column */}
+                  <div>
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Market Demand</h3>
+                    <p className="text-gray-800 text-sm md:text-base mb-4">
+                      “Framer templates” are searched nearly <b>2× more</b> than “Webflow templates.”
+                      SaaS market projected at <b>$232B+ by 2028</b> (CAGR ~12%). Every SaaS needs a
+                      fast, credible landing page → consistent demand.
+                    </p>
+
+                    {/* Chart: Search Trends */}
+                    <div className="bg-white rounded-2xl p-4 mb-6">
+                      <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-2">Search Trends: Framer vs Webflow</h4>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <BarChart data={[
+                          { name: "Framer Templates", value: 200 },
+                          { name: "Webflow Templates", value: 100 }
+                        ]}>
+                          <XAxis dataKey="name" tick={{ fill: "#374151", fontSize: 12 }} />
+                          <YAxis tick={{ fill: "#374151", fontSize: 12 }} />
+                          <Tooltip contentStyle={{ borderRadius: 12, borderColor: '#E5E7EB', background: '#FFFFFF', color: '#111827' }} />
+                          <Bar dataKey="value" fill="#111827" radius={[0, 0, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Competitor Analysis</h3>
+                    <p className="text-gray-800 text-sm md:text-base mb-4">
+                      <b>Direct:</b> Framer Marketplace, Gumroad creators. <br/>
+                      <b>Indirect:</b> Webflow sellers, ThemeForest. <br/>
+                      <b>Gap:</b> Few SaaS-focused premium templates → opportunity to dominate niche.
+                    </p>
+
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Target Audience</h3>
+                    <ul className="list-disc list-inside text-gray-800 space-y-1 mb-4 text-sm md:text-base">
+                      <li>SaaS founders, indie hackers, startup teams</li>
+                      <li>Agencies & freelancers delivering for clients</li>
+                      <li>Geography: US, Europe, global tech hubs</li>
+                      <li>Behavior: value speed + aesthetics, active on X, LinkedIn, IndieHackers</li>
+                    </ul>
+                  </div>
+
+                  {/* Right Column */}
+                  <div>
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Marketing & Distribution</h3>
+                    <ul className="list-disc list-inside text-gray-800 space-y-1 mb-4 text-sm md:text-base">
+                      <li>YouTube tutorials (“Build SaaS site in Framer”)</li>
+                      <li>SEO blogs & case studies</li>
+                      <li>Free templates → email funnel → upsell</li>
+                      <li>Retargeting ads (Google/Meta)</li>
+                      <li>Community launches: ProductHunt, IndieHackers</li>
+                    </ul>
+
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Monetization Models</h3>
+                    <ul className="list-disc list-inside text-gray-800 space-y-1 mb-4 text-sm md:text-base">
+                      <li>One-time template sales ($49–$150)</li>
+                      <li>Bundles (SaaS Starter Kit $250+)</li>
+                      <li>Subscription (~$19/mo recurring)</li>
+                      <li>Custom upsells ($500–$2k per project)</li>
+                    </ul>
+
+                    {/* Chart: SaaS Market Growth */}
+                    <div className="bg-white rounded-2xl p-4 mb-6">
+                      <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-2">Global SaaS Market Growth (est.)</h4>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <BarChart data={[
+                          { year: "2024", value: 164 },
+                          { year: "2026", value: 200 },
+                          { year: "2028", value: 232 }
+                        ]}>
+                          <XAxis dataKey="year" tick={{ fill: "#374151", fontSize: 12 }} />
+                          <YAxis tick={{ fill: "#374151", fontSize: 12 }} />
+                          <Tooltip contentStyle={{ borderRadius: 12, borderColor: '#E5E7EB', background: '#FFFFFF', color: '#111827' }} />
+                          <Bar dataKey="value" fill="#111827" radius={[0, 0, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">Opportunities</h3>
+                    <ul className="list-disc list-inside text-gray-800 space-y-1 mb-4 text-sm md:text-base">
+                      <li>First-mover SaaS template niche</li>
+                      <li>AI-ready template positioning</li>
+                      <li>Cross-platform expansion (Webflow, WP)</li>
+                      <li>Agency upsell: full SaaS branding packages</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Bottom Insight */}
+                <div className="mt-6 md:mt-8 p-4 md:p-6 bg-gray-100 rounded-2xl shadow-inner">
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">🔑 Key Recommendations</h3>
+                  <p className="text-gray-800 text-sm md:text-base mb-2">
+                    Launch with 2–3 premium SaaS templates; niche down into SaaS landing pages; 
+                    build in public on X & LinkedIn; capture emails via free templates; validate 
+                    pricing ($49–$79 each); expand into subscriptions once 10–15 templates exist.
+                  </p>
+                  <p className="text-gray-900 font-semibold text-sm md:text-base">
+                    ✅ Verdict: Low-cost, high-upside. Demand is real, competition unsaturated, 
+                    success hinges on consistent content + premium quality.
+                  </p>
                 </div>
               </motion.section>
             )}
