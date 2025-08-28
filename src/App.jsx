@@ -16,31 +16,6 @@ export default function InvestorDeck() {
   const TARGET_AMOUNT = 10000;
   const raisedPercent = Math.max(0, Math.min(100, Math.round((amountRaised / TARGET_AMOUNT) * 100)));
 
-  const triggerHaptic = () => {
-    // Check for vibration API support (mobile devices)
-    if ('vibrate' in navigator && navigator.vibrate) {
-      try {
-        navigator.vibrate(50); // Light vibration for 50ms
-      } catch (error) {
-        console.log('Haptic feedback not available');
-      }
-    }
-    
-    // Alternative for iOS devices (when Haptic API becomes available)
-    if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
-      // iOS 13+ haptic feedback would go here when available
-    }
-    
-    // Web Vibration API fallback for Android
-    if (window.navigator && window.navigator.vibrate) {
-      try {
-        window.navigator.vibrate(50);
-      } catch (error) {
-        console.log('Vibration API not supported');
-      }
-    }
-  };
-
   const revenueData = [
     { name: "Template Sales", value: 30000 },
     { name: "Subscriptions", value: 5000 },
@@ -56,7 +31,6 @@ export default function InvestorDeck() {
   const NavButton = ({ id, label }) => (
     <button
       onClick={() => {
-        triggerHaptic();
         setPage(id);
       }}
       className={`px-2.5 py-1.5 rounded-xl text-xs md:text-sm font-medium transition ${
@@ -74,17 +48,17 @@ export default function InvestorDeck() {
       <Card className="w-full max-w-6xl mx-auto shadow-xl rounded-2xl overflow-hidden">
         <div className="px-5 pt-5 md:px-6 md:pt-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3">
               <motion.img initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} src="/logo.png" alt="Logo" className="h-9 w-9 md:h-10 md:w-10 object-contain" />
-              <div>
+            <div>
                 <h1 className="text-lg md:text-xl font-bold text-gray-900">Creative Framer templates & Custom Services</h1>
                 <p className="text-xs md:text-sm text-gray-500">Premium, conversion‑optimized templates for faster launches</p>
               </div>
             </div>
             <div className="flex gap-2 flex-wrap">
-              <NavButton id="overview" label="Overview" />
+            <NavButton id="overview" label="Overview" />
               <NavButton id="market" label="Market Analysis" />
-              <NavButton id="scale" label="Scale Plan" />
+            <NavButton id="scale" label="Scale Plan" />
               <NavButton id="roadmap" label="Roadmap" />
               <NavButton id="about" label="About Me" />
             </div>
@@ -107,7 +81,7 @@ export default function InvestorDeck() {
                     <div className="grid grid-cols-2 gap-2.5">
                       <InfoTile icon={<Users className="h-4 w-4" />} title="ICP" text="SaaS founders, agencies, product marketers" />
                       <InfoTile icon={<Target className="h-4 w-4" />} title="Edge" text="SaaS‑specific UX + CRO patterns" />
-                      <InfoTile icon={<PlayCircle className="h-4 w-4" />} title="Go‑to‑Market" text="YouTube, SEO, free kits, remarketing" />
+                      <InfoTile icon={<PlayCircle className="h-4 w-4" />} title="Go‑to‑Market" text="Framer marketplace, Trending web design, High Speed & Low Cost" />
                       <InfoTile icon={<DollarSign className="h-4 w-4" />} title="Model" text="Templates, subscriptions, custom work" />
                     </div>
 
@@ -191,8 +165,8 @@ export default function InvestorDeck() {
                               />
                             ))}
                           </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
+                      </BarChart>
+                    </ResponsiveContainer>
                       
                       {/* Revenue Insights */}
                       <div className="mt-4 space-y-2 text-xs">
@@ -220,6 +194,7 @@ export default function InvestorDeck() {
             {page === "roadmap" && (
               <motion.section key="roadmap" variants={container} initial="hidden" animate="show" exit="exit">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">🗺️ Project Roadmap</h2>
+
                 
                 <div className="space-y-6">
                   {/* Timeline */}
@@ -232,13 +207,13 @@ export default function InvestorDeck() {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="relative flex items-start gap-4 pb-8 group"
+                      className="relative flex items-start gap-4 pb-8"
                     >
                       <div className="flex-shrink-0 w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center text-sm font-bold relative z-10">1</div>
-                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm hover:shadow-xl hover:border-white/80 hover:from-white hover:via-white hover:to-gray-50 transition-all duration-500 relative overflow-hidden group-hover:scale-[1.02] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
+                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm transition-all duration-500 relative overflow-hidden">
                         <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1">Foundation (0-3 months)</h3>
                         <p className="text-gray-800 text-xs md:text-sm mb-2">Build core template collection and establish market presence</p>
-                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-300">
+                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-100 h-auto overflow-visible">
                           <li>Create 5 premium SaaS templates</li>
                           <li>Launch marketplace presence</li>
                           <li>Establish brand and website</li>
@@ -263,13 +238,13 @@ export default function InvestorDeck() {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="relative flex items-start gap-4 pb-8 group"
+                      className="relative flex items-start gap-4 pb-8"
                     >
                       <div className="flex-shrink-0 w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center text-sm font-bold relative z-10">2</div>
-                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm hover:shadow-xl hover:border-white/80 hover:from-white hover:via-white hover:to-gray-50 transition-all duration-500 relative overflow-hidden group-hover:scale-[1.02] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
+                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm transition-all duration-500 relative overflow-hidden">
                         <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1">Growth (3-6 months)</h3>
                         <p className="text-gray-800 text-xs md:text-sm mb-2">Scale template library and introduce subscription model</p>
-                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-300">
+                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-100 h-auto overflow-visible">
                           <li>Expand to 15+ templates</li>
                           <li>Launch subscription service</li>
                           <li>Build email funnel system</li>
@@ -294,13 +269,13 @@ export default function InvestorDeck() {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 }}
-                      className="relative flex items-start gap-4 pb-8 group"
+                      className="relative flex items-start gap-4 pb-8"
                     >
                       <div className="flex-shrink-0 w-8 h-8 bg-gray-300 text-gray-700 rounded-full flex items-center justify-center text-sm font-bold relative z-10">3</div>
-                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm hover:shadow-xl hover:border-white/80 hover:from-white hover:via-white hover:to-gray-50 transition-all duration-500 relative overflow-hidden group-hover:scale-[1.02] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
+                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm transition-all duration-500 relative overflow-hidden">
                         <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1">Expansion (6-12 months)</h3>
                         <p className="text-gray-800 text-xs md:text-sm mb-2">Introduce custom services and scale operations</p>
-                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-300">
+                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-100 h-auto overflow-visible">
                           <li>Launch custom design services</li>
                           <li>Hire junior designer/developer</li>
                           <li>Diversify revenue streams</li>
@@ -325,13 +300,13 @@ export default function InvestorDeck() {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4 }}
-                      className="relative flex items-start gap-4 group"
+                      className="relative flex items-start gap-4"
                     >
                       <div className="flex-shrink-0 w-8 h-8 bg-gray-300 text-gray-700 rounded-full flex items-center justify-center text-sm font-bold relative z-10">4</div>
-                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm hover:shadow-xl hover:border-white/80 hover:from-white hover:via-white hover:to-gray-50 transition-all duration-500 relative overflow-hidden group-hover:scale-[1.02] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700">
+                      <div className="flex-1 min-w-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-4 border border-white/50 backdrop-blur-sm transition-all duration-500 relative overflow-hidden">
                         <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1">Studio Evolution (12+ months)</h3>
                         <p className="text-gray-800 text-xs md:text-sm mb-2">Transform into full-service Creative Tech Consulting</p>
-                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-300">
+                        <ul className="list-disc list-inside text-gray-700 text-xs space-y-1 opacity-100 h-auto overflow-visible">
                           <li>Establish Sydney-based studio</li>
                           <li>Full-service design & development</li>
                           <li>Enterprise client acquisition</li>
@@ -390,7 +365,7 @@ export default function InvestorDeck() {
                   <div className="mt-6 bg-gray-50 rounded-2xl p-4 md:p-6 border border-gray-100">
                     <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3">💰 Funding Requirements</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
+                  <div>
                         <p className="text-gray-800 text-xs md:text-sm mb-3">
                           Seeking <b>$10,000</b> pre-seed to accelerate template production, marketing, and early subscriptions. Target runway: <b>12 months</b>.
                         </p>
@@ -590,10 +565,10 @@ export default function InvestorDeck() {
                     </div>
 
                     <div className="flex gap-3 flex-wrap">
-                      <a href={PDF_URL} download onClick={triggerHaptic}>
+                      <a href={PDF_URL} download>
                         <Button className="bg-black text-white rounded-xl text-xs md:text-sm px-3 py-1.5">Download Full Plan (PDF)</Button>
                       </a>
-                      <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" onClick={() => { triggerHaptic(); setPage("roadmap"); }}>View Roadmap</Button>
+                      <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" onClick={() => { setPage("roadmap"); }}>View Roadmap</Button>
                     </div>
                   </div>
                 </div>
@@ -754,7 +729,6 @@ export default function InvestorDeck() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-xs text-gray-500 hover:text-gray-700 underline"
-                          onClick={triggerHaptic}
                         >
                           Source: Google Trends
                         </a>
@@ -898,7 +872,6 @@ export default function InvestorDeck() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-xs text-gray-500 hover:text-gray-700 underline"
-                          onClick={triggerHaptic}
                         >
                           Source: Grand View Research
                         </a>
@@ -936,16 +909,20 @@ export default function InvestorDeck() {
                 <div>
                   <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Obi Batbileg</h2>
                   <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3.5">
-                    Designer‑engineer with expertise in SaaS, front‑end (React, Next.js, Tailwind), and creative tech consulting. Experience launching web solutions for SMEs and brands in Sydney. Vision: expand into a Creative Tech Consulting firm supporting small to medium businesses in design, branding, and SaaS scalability.
+                    I am a recent graduate in Information and Communications Technology (Information Systems) with hands-on experience in front-end development, SaaS concepts, and digital solutions. Over the past few years, I've worked on projects combining design, coding, and consulting—ranging from building Figma-to-code prototypes to delivering web and branding solutions for small businesses and community groups in Sydney.
+                  </p>
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1.5">Vision</h3>
+                  <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3.5">
+                    My vision is to grow this experience into a Framer-driven, no-code, high-speed production approach that evolves into a Creative Tech Consulting firm. The goal is to help small to medium-sized businesses improve their digital presence by offering accessible services in web development, design, and scalable SaaS solutions—supporting SMEs in streamlining their operations and building stronger brands.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3">
-                    <a href="mailto:hello@obii.tech" target="_blank" rel="noreferrer" onClick={triggerHaptic}>
+                    <a href="mailto:hello@obii.tech" target="_blank" rel="noreferrer">
                       <Button className="bg-black text-white rounded-xl text-xs md:text-sm px-3 py-1.5">Email</Button>
                     </a>
-                    <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer" onClick={triggerHaptic}>
+                    <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer">
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5">LinkedIn</Button>
                     </a>
-                    <a href="https://obii.tech" target="_blank" rel="noreferrer" onClick={triggerHaptic}>
+                    <a href="https://obii.tech" target="_blank" rel="noreferrer">
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5">Portfolio</Button>
                     </a>
                   </div>
@@ -958,13 +935,13 @@ export default function InvestorDeck() {
         <div className="px-5 md:px-6 pb-5 md:pb-6 flex flex-col md:flex-row items-center justify-between gap-2 text-xs md:text-sm text-gray-500">
           <p className="text-center md:text-left">© {new Date().getFullYear()} Obi Batbileg · Framer Templates for SaaS</p>
           <div className="flex gap-2">
-            <button onClick={() => { triggerHaptic(); setPage("overview"); }} className="hover:underline">Overview</button>
+            <button onClick={() => { setPage("overview"); }} className="hover:underline">Overview</button>
             <span>·</span>
-            <button onClick={() => { triggerHaptic(); setPage("roadmap"); }} className="hover:underline">Roadmap</button>
+            <button onClick={() => { setPage("roadmap"); }} className="hover:underline">Roadmap</button>
             <span>·</span>
-            <button onClick={() => { triggerHaptic(); setPage("scale"); }} className="hover:underline">Scale</button>
+            <button onClick={() => { setPage("scale"); }} className="hover:underline">Scale</button>
             <span>·</span>
-            <button onClick={() => { triggerHaptic(); setPage("about"); }} className="hover:underline">About</button>
+            <button onClick={() => { setPage("about"); }} className="hover:underline">About</button>
           </div>
         </div>
       </Card>
