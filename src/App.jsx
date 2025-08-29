@@ -189,12 +189,12 @@ export default function InvestorDeck() {
                                     fontSize: '12px',
                                     minWidth: '180px'
                                   }}>
-                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#E5E7EB' : '#374151', marginBottom: '8px' }}>{label}</p>
+                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
                                     <div style={{ marginBottom: '6px' }}>
-                                      <span style={{ color: isDarkMode ? '#F3F4F6' : '#111827', fontWeight: 'bold' }}>Revenue:</span> ${data.value.toLocaleString()}
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Revenue:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>${data.value.toLocaleString()}</span>
                                     </div>
                                     <div style={{ marginBottom: '6px' }}>
-                                      <span style={{ color: isDarkMode ? '#9CA3AF' : '#6B7280' }}>Share of Total:</span> 
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>Share of Total:</span> 
                                       <span style={{ 
                                         marginLeft: '6px', 
                                         fontWeight: 'bold',
@@ -203,7 +203,7 @@ export default function InvestorDeck() {
                                         {percentage}%
                                       </span>
                                     </div>
-                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#9CA3AF' : '#6B7280', paddingTop: '4px', borderTop: `1px solid ${isDarkMode ? '#4B5563' : '#F3F4F6'}` }}>
+                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#FFFFFF' : '#6B7280', paddingTop: '4px', borderTop: `1px solid ${isDarkMode ? '#4B5563' : '#F3F4F6'}` }}>
                                       Monthly: ${Math.round(data.value / 12).toLocaleString()}
                                     </div>
                                   </div>
@@ -703,9 +703,9 @@ export default function InvestorDeck() {
                                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                                     fontSize: '12px'
                                   }}>
-                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#E5E7EB' : '#374151', marginBottom: '8px' }}>{label}</p>
+                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
                                     <div style={{ marginBottom: '4px' }}>
-                                      <span style={{ color: isDarkMode ? '#F3F4F6' : '#111827', fontWeight: 'bold' }}>Framer:</span> {data.framer}
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Framer:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>{data.framer}</span>
                                       {data.framerGrowth && (
                                         <span style={{ 
                                           marginLeft: '8px', 
@@ -718,7 +718,7 @@ export default function InvestorDeck() {
                                       )}
                                     </div>
                                     <div>
-                                      <span style={{ color: isDarkMode ? '#9CA3AF' : '#6B7280', fontWeight: 'bold' }}>Webflow:</span> {data.webflow}
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280', fontWeight: 'bold' }}>Webflow:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>{data.webflow}</span>
                                       {data.webflowGrowth && (
                                         <span style={{ 
                                           marginLeft: '8px', 
@@ -872,9 +872,9 @@ export default function InvestorDeck() {
                                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                                     fontSize: '12px'
                                   }}>
-                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#E5E7EB' : '#374151', marginBottom: '8px' }}>{label}</p>
+                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
                                     <div style={{ marginBottom: '4px' }}>
-                                      <span style={{ color: isDarkMode ? '#F3F4F6' : '#111827', fontWeight: 'bold' }}>Market Value:</span> ${data.value}B
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Market Value:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>${data.value}B</span>
                                       {data.growth && (
                                         <span style={{ 
                                           marginLeft: '8px', 
@@ -886,7 +886,7 @@ export default function InvestorDeck() {
                                         </span>
                                       )}
                                     </div>
-                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#9CA3AF' : '#6B7280' }}>
+                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>
                                       Compound Annual Growth Rate: ~12%
                                     </div>
                                   </div>
@@ -951,7 +951,7 @@ export default function InvestorDeck() {
 
                 {/* Bottom Insight */}
                 <div className={`mt-6 md:mt-8 p-4 md:p-6 rounded-2xl shadow-inner transition-colors duration-300 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
-                  <h3 className={`text-base md:text-lg font-bold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>🔑 Key Recommendations</h3>
+                  <h3 className={`text-base md:text-lg font-bold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>📒 Note</h3>
                   <p className={`text-xs md:text-sm mb-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                     Launch with 2–3 premium SaaS templates; niche down into SaaS landing pages; 
                     build in public on X & LinkedIn; capture emails via free templates; validate 
