@@ -22,14 +22,14 @@ export default function InvestorDeck() {
 
   // Apply dark mode to body and persist preference
   useEffect(() => {
-    // Check for saved preference or system preference
+    // Check for saved preference or default to light mode
     const savedMode = localStorage.getItem('darkMode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     if (savedMode !== null) {
       setIsDarkMode(savedMode === 'true');
     } else {
-      setIsDarkMode(prefersDark);
+      // Default to light mode instead of system preference
+      setIsDarkMode(false);
     }
   }, []);
 
