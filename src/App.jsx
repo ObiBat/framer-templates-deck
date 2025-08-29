@@ -286,10 +286,10 @@ export default function InvestorDeck() {
                               initial={{ width: 0 }}
                               whileInView={{ width: "5%" }}
                               transition={{ duration: 1, delay: 0.3 }}
-                              className="bg-gray-600 h-2 rounded-full"
+                              className={`h-2 rounded-full ${isDarkMode ? 'bg-white' : 'bg-black'}`}
                             />
                           </div>
-                          <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Starting</span>
+                          <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>5% Complete</span>
                         </div>
                       </div>
                     </motion.div>
@@ -915,7 +915,7 @@ export default function InvestorDeck() {
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Growth Rate:</span>
-                          <span className="font-semibold text-green-600">~12% CAGR</span> <span className="text-black">(Compound Annual)</span>
+                          <span className="font-semibold text-green-600">~12% CAGR</span> <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>(Compound Annual)</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>By 2030:</span>
