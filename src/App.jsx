@@ -94,14 +94,14 @@ export default function InvestorDeck() {
                 className={`h-9 w-9 md:h-10 md:w-10 object-contain transition-all duration-300 ${isDarkMode ? 'brightness-0 invert' : ''}`}
               />
             <div>
-                <h1 className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Creative Framer templates & Custom Services</h1>
+                <h1 className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>Premium Framer templates & Custom Services</h1>
                 <p className={`text-xs md:text-sm transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Premium, conversion‑optimized templates for faster launches</p>
               </div>
             </div>
             <div className="flex gap-2 flex-wrap items-center">
-              <NavButton id="overview" label="Overview" />
+            <NavButton id="overview" label="Overview" />
               <NavButton id="market" label="Market Analysis" />
-              <NavButton id="scale" label="Scale Plan" />
+            <NavButton id="scale" label="Scale Plan" />
               <NavButton id="roadmap" label="Roadmap" />
               <NavButton id="about" label="About Me" />
               
@@ -135,9 +135,8 @@ export default function InvestorDeck() {
                   <div className="flex flex-col justify-between">
                     <motion.h2 className={`text-xl md:text-2xl font-bold mb-2.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Why Now</motion.h2>
                     <p className={`text-sm md:text-base leading-relaxed mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                      We build and sell premium Framer templates tailored to SaaS. Demand is surging — users search for
-                      “Framer template” roughly <b>2×</b> more than “Webflow template,” and SaaS teams want design‑quality
-                      without agency cost or delay. We help them ship credible marketing sites in days, not weeks.
+                      We build and sell premium Framer templates tailored to SaaS. Teams want design‑quality without
+                      agency cost or delay. We help them ship credible marketing sites in days, not weeks.
                     </p>
 
                     <div className="grid grid-cols-2 gap-2.5">
@@ -680,7 +679,7 @@ export default function InvestorDeck() {
                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
                             domain={[0, 80]}
-                            label={{ value: 'Search Volume', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
+                            label={{ value: 'Search Interest (0-100)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
                           />
                           <Tooltip 
                             contentStyle={{ 
@@ -771,7 +770,7 @@ export default function InvestorDeck() {
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>2025:</span>
-                          <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Framer surged past Webflow (+110% vs +11%)</span>
+                          <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Framer surged past Webflow (<span className="text-green-600">+110%</span> vs <span className="text-orange-500">+11%</span>)</span>
                         </div>
                       </div>
 
@@ -787,7 +786,7 @@ export default function InvestorDeck() {
                           </div>
                         </div>
                         <a 
-                          href="https://trends.google.com/trends/explore?date=2020-01-01%202025-01-31&q=framer%20templates,webflow%20templates" 
+                          href="https://trends.google.com/trends/explore?date=today%205-y&q=framer%20templates,webflow%20templates" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className={`text-xs underline transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'}`}
@@ -916,7 +915,7 @@ export default function InvestorDeck() {
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Growth Rate:</span>
-                          <span className="font-semibold text-green-600">~12% CAGR (Compound Annual)</span>
+                          <span className="font-semibold text-green-600">~12% CAGR</span> <span className="text-black">(Compound Annual)</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>By 2030:</span>
@@ -978,15 +977,12 @@ export default function InvestorDeck() {
                     My vision is to grow this experience into a Framer-driven, no-code, high-speed production approach that evolves into a Creative Tech Consulting firm. The goal is to help small to medium-sized businesses improve their digital presence by offering accessible services in web development, design, and scalable SaaS solutions—supporting SMEs in streamlining their operations and building stronger brands.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3">
-                    <a href="mailto:hello@obii.tech" target="_blank" rel="noreferrer">
+                      <a href="mailto:hello@obii.tech" target="_blank" rel="noreferrer">
                       <Button className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Email</Button>
-                    </a>
-                    <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer">
+                      </a>
+                      <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer">
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>LinkedIn</Button>
-                    </a>
-                    <a href="https://obii.tech" target="_blank" rel="noreferrer">
-                      <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Portfolio</Button>
-                    </a>
+                      </a>
                   </div>
                 </div>
               </motion.section>
