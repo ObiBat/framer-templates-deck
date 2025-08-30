@@ -13,6 +13,7 @@ export default function InvestorDeck() {
   const [page, setPage] = useState("overview");
   const [amountRaised, setAmountRaised] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [currentOpportunity, setCurrentOpportunity] = useState(0);
 
   // Dark mode toggle function
   const toggleDarkMode = () => {
@@ -49,6 +50,15 @@ export default function InvestorDeck() {
     console.log('Dark mode:', isDarkMode);
     console.log('HTML classes:', htmlElement.classList.toString());
   }, [isDarkMode]);
+
+  // Auto-cycle opportunities every 8 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentOpportunity(prev => prev === 4 ? 0 : prev + 1);
+    }, 8000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const TARGET_AMOUNT = 10000;
   const raisedPercent = Math.max(0, Math.min(100, Math.round((amountRaised / TARGET_AMOUNT) * 100)));
@@ -644,7 +654,7 @@ export default function InvestorDeck() {
                 animate="show"
                 exit="exit"
               >
-                                 <h2 className={`text-xl md:text-2xl font-bold mb-2.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>📊 Market Research & Analysis</h2>
+                                 <h2 className={`text-xl md:text-2xl font-bold mb-2.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market Research & Analysis</h2>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                    {/* Left Column */}
@@ -796,155 +806,381 @@ export default function InvestorDeck() {
                       </div>
                     </div>
 
-                                         <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Competitor Analysis</h3>
+
+
+                     <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market Landscape</h3>
                      <p className={`text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                       <b>Direct:</b> Framer Marketplace, Gumroad creators. <br/>
-                       <b>Indirect:</b> Webflow sellers, ThemeForest. <br/>
-                       <b>Gap:</b> Few SaaS-focused premium templates → opportunity to dominate niche.
+                       <b>• SaaS founders & Devs</b> → want fast, credible sites without agencies. Pain points: speed, design credibility, low cost. <br/>
+                       <b>• SMEs</b> (construction, health, hospitality and retail in Sydney initially) → want "modern online presence" but not technical. Pain points: complexity, maintenance. <br/>
+                       <b>• Creators / coaches</b> → want funnels, landing pages, email capture quickly. Pain points: too much DIY, poor conversions.
                      </p>
 
-                     <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Target Audience</h3>
-                     <ul className={`list-disc list-inside space-y-1 text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                       <li>SaaS founders, indie hackers, startup teams</li>
-                       <li>Agencies & freelancers delivering for clients</li>
-                       <li>Geography: US, Europe, global tech hubs</li>
-                       <li>Behavior: value speed + aesthetics, active on X, LinkedIn, IndieHackers</li>
-                     </ul>
+                     {/* Chart: SaaS Market Growth */}
+                     <div className={`rounded-2xl p-4 mb-6 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
+                       <h4 className={`text-xs md:text-sm font-semibold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>💰 Global SaaS Market Size (2022-2030)</h4>
+                       <ResponsiveContainer width="100%" height={220}>
+                         <LineChart data={[
+                           { year: "2022", value: 261, growth: null },
+                           { year: "2023", value: 333, growth: "+28%" },
+                           { year: "2024", value: 399, growth: "+20%" },
+                           { year: "2025", value: 464, growth: "+16%" },
+                           { year: "2026", value: 520, growth: "+12%" },
+                           { year: "2027", value: 582, growth: "+12%" },
+                           { year: "2028", value: 652, growth: "+12%" },
+                           { year: "2029", value: 730, growth: "+12%" },
+                           { year: "2030", value: 819, growth: "+12%" }
+                         ]}>
+                           <XAxis 
+                             dataKey="year" 
+                             tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }}
+                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+                           />
+                           <YAxis 
+                             tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }}
+                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+                             domain={[200, 900]}
+                             label={{ value: 'Market Size (US$B)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
+                           />
+                           <Tooltip 
+                             content={({ active, payload, label }) => {
+                               if (active && payload && payload.length) {
+                                 const data = payload[0].payload;
+                                 return (
+                                   <div style={{ 
+                                     background: isDarkMode ? '#374151' : '#FFFFFF', 
+                                     padding: '12px', 
+                                     borderRadius: '12px', 
+                                     border: `1px solid ${isDarkMode ? '#4B5563' : '#E5E7EB'}`,
+                                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                     fontSize: '12px'
+                                   }}>
+                                     <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
+                                     <div style={{ marginBottom: '4px' }}>
+                                       <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Market Value:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>${data.value}B</span>
+                                       {data.growth && (
+                                         <span style={{ 
+                                           marginLeft: '8px', 
+                                           fontSize: '11px',
+                                           color: '#059669',
+                                           fontWeight: 'bold'
+                                         }}>
+                                           {data.growth}
+                                         </span>
+                                       )}
+                                     </div>
+                                     <div style={{ fontSize: '11px', color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>
+                                       Compound Annual Growth Rate: ~12%
+                                     </div>
+                                   </div>
+                                 );
+                               }
+                               return null;
+                             }}
+                           />
+                           <Line 
+                             type="monotone" 
+                             dataKey="value" 
+                             stroke={isDarkMode ? "#FFFFFF" : "#111827"} 
+                             strokeWidth={3}
+                             dot={{ fill: isDarkMode ? "#FFFFFF" : "#111827", strokeWidth: 2, r: 4 }}
+                             activeDot={{ r: 6, fill: isDarkMode ? "#FFFFFF" : "#111827", strokeWidth: 3 }}
+                             name="SaaS Market Value"
+                           />
+                         </LineChart>
+                       </ResponsiveContainer>
+                       
+                       {/* Key Market Insights */}
+                       <div className="mt-4 space-y-2 text-xs">
+                         <div className="flex items-center gap-2">
+                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>2024-2030:</span>
+                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Expected to grow from $399B to $819B</span>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Growth Rate:</span>
+                           <span className="font-semibold text-green-600">12% CAGR</span> <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>(2025-2030)</span>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>By 2030:</span>
+                           <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market reaches $819B+ globally</span>
+                         </div>
+                       </div>
+
+                       <div className={`flex items-center justify-between mt-4 pt-3 border-t transition-colors duration-300 ${isDarkMode ? 'border-gray-600' : 'border-gray-100'}`}>
+                         <div className="flex items-center gap-2 text-xs">
+                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Top Markets: U.S., UK, India, Canada, Germany, France, Australia, Netherlands, China, Spain</span>
+                         </div>
+                         <a 
+                           href="https://www.grandviewresearch.com/horizon/outlook/software-as-a-service-saas-market-size/global" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           className={`text-xs underline transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'}`}
+                         >
+                           Source: Grand View Research
+                         </a>
+                       </div>
+                     </div>
+
                   </div>
 
                   {/* Right Column */}
                   <div>
-                    <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Marketing & Distribution</h3>
-                    <ul className={`list-disc list-inside space-y-1 text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                      <li>YouTube tutorials ("Build SaaS site in Framer")</li>
-                      <li>SEO blogs & case studies</li>
-                      <li>Free templates → email funnel → upsell</li>
-                      <li>Retargeting ads (Google/Meta)</li>
-                      <li>Community launches: ProductHunt, IndieHackers</li>
-                    </ul>
-
-                    <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Monetization Models</h3>
-                    <ul className={`list-disc list-inside space-y-1 text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                      <li>One-time template sales ($49–$150)</li>
-                      <li>Bundles (SaaS Starter Kit $250+)</li>
-                      <li>Subscription (~$19/mo recurring)</li>
-                      <li>Custom upsells ($500–$2k per project)</li>
-                    </ul>
-
-                    {/* Chart: SaaS Market Growth */}
+                    <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>🎯 Marketing Funnel</h3>
+                    
+                    {/* Marketing Funnel Chart */}
                     <div className={`rounded-2xl p-4 mb-6 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
-                      <h4 className={`text-xs md:text-sm font-semibold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>💰 Global SaaS Market Size (2022-2030)</h4>
-                      <ResponsiveContainer width="100%" height={220}>
-                        <LineChart data={[
-                          { year: "2022", value: 261, growth: null },
-                          { year: "2023", value: 333, growth: "+28%" },
-                          { year: "2024", value: 399, growth: "+20%" },
-                          { year: "2025", value: 464, growth: "+16%" },
-                          { year: "2026", value: 520, growth: "+12%" },
-                          { year: "2027", value: 582, growth: "+12%" },
-                          { year: "2028", value: 652, growth: "+12%" },
-                          { year: "2029", value: 730, growth: "+12%" },
-                          { year: "2030", value: 819, growth: "+12%" }
-                        ]}>
-                          <XAxis 
-                            dataKey="year" 
-                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }}
-                            axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
-                            tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+                      {/* Funnel Shape Visualization */}
+                      <div className="relative mb-4">
+                        <svg width="100%" height="120" viewBox="0 0 300 120" className="overflow-visible">
+                          {/* Funnel Shape */}
+                          <motion.path
+                            d="M50 20 L250 20 L220 40 L80 40 L190 60 L110 60 L160 80 L140 80 L155 100 L145 100 Z"
+                            fill={isDarkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
+                            stroke={isDarkMode ? "#9CA3AF" : "#6B7280"}
+                            strokeWidth="2"
+                            strokeDasharray="5,5"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            whileInView={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 2 }}
                           />
-                          <YAxis 
-                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }}
-                            axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
-                            tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
-                            domain={[200, 900]}
-                            label={{ value: 'Market Size (US$B)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
-                          />
-                          <Tooltip 
-                            content={({ active, payload, label }) => {
-                              if (active && payload && payload.length) {
-                                const data = payload[0].payload;
-                                return (
-                                  <div style={{ 
-                                    background: isDarkMode ? '#374151' : '#FFFFFF', 
-                                    padding: '12px', 
-                                    borderRadius: '12px', 
-                                    border: `1px solid ${isDarkMode ? '#4B5563' : '#E5E7EB'}`,
-                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                    fontSize: '12px'
-                                  }}>
-                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
-                                    <div style={{ marginBottom: '4px' }}>
-                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Market Value:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>${data.value}B</span>
-                                      {data.growth && (
-                                        <span style={{ 
-                                          marginLeft: '8px', 
-                                          fontSize: '11px',
-                                          color: '#059669',
-                                          fontWeight: 'bold'
-                                        }}>
-                                          {data.growth}
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>
-                                      Compound Annual Growth Rate: ~12%
-                                    </div>
-                                  </div>
-                                );
-                              }
-                              return null;
-                            }}
-                          />
-                          <Line 
-                            type="monotone" 
-                            dataKey="value" 
-                            stroke={isDarkMode ? "#FFFFFF" : "#111827"} 
-                            strokeWidth={3}
-                            dot={{ fill: isDarkMode ? "#FFFFFF" : "#111827", strokeWidth: 2, r: 4 }}
-                            activeDot={{ r: 6, fill: isDarkMode ? "#FFFFFF" : "#111827", strokeWidth: 3 }}
-                            name="SaaS Market Value"
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
-                      
-                      {/* Key Market Insights */}
-                      <div className="mt-4 space-y-2 text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>2024-2030:</span>
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Expected to grow from $399B to $819B</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Growth Rate:</span>
-                          <span className="font-semibold text-green-600">12% CAGR</span> <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>(2025-2030)</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>By 2030:</span>
-                          <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market reaches $819B+ globally</span>
-                        </div>
+                          
+                          {/* Stage Markers */}
+                          {[
+                            { x: 150, y: 15, icon: "🎯", stage: "1" },
+                            { x: 150, y: 35, icon: "📧", stage: "2" },
+                            { x: 150, y: 55, icon: "💰", stage: "3" },
+                            { x: 150, y: 75, icon: "🔄", stage: "4" },
+                            { x: 150, y: 95, icon: "🚀", stage: "5" }
+                          ].map((marker, index) => (
+                            <motion.g
+                              key={index}
+                              initial={{ scale: 0, opacity: 0 }}
+                              whileInView={{ scale: 1, opacity: 1 }}
+                              transition={{ delay: index * 0.2 + 0.5 }}
+                            >
+                              <circle
+                                cx={marker.x}
+                                cy={marker.y}
+                                r="12"
+                                fill={isDarkMode ? "#374151" : "#FFFFFF"}
+                                stroke={isDarkMode ? "#9CA3AF" : "#6B7280"}
+                                strokeWidth="2"
+                              />
+                              <text
+                                x={marker.x}
+                                y={marker.y + 4}
+                                textAnchor="middle"
+                                fontSize="10"
+                                fill={isDarkMode ? "#FFFFFF" : "#111827"}
+                              >
+                                {marker.stage}
+                              </text>
+                            </motion.g>
+                          ))}
+                        </svg>
                       </div>
 
-                      <div className={`flex items-center justify-between mt-4 pt-3 border-t transition-colors duration-300 ${isDarkMode ? 'border-gray-600' : 'border-gray-100'}`}>
-                        <div className="flex items-center gap-2 text-xs">
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Top Markets: U.S., UK, India, Canada, Germany, France, Australia, Netherlands, China, Spain</span>
+                      {/* Compact Stage Cards */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {[
+                          {
+                            stage: "1",
+                            title: "Awareness",
+                            tactics: "YouTube + Shorts + Free Templates + LinkedIn/X + Blog posts + Tutorials",
+                            key: "Value proves delivery"
+                          },
+                          {
+                            stage: "2", 
+                            title: "Interest",
+                            tactics: "Email drips + Community signals",
+                            key: "Storytelling reduces friction"
+                          },
+                          {
+                            stage: "3",
+                            title: "Decision", 
+                            tactics: "Landing pages with comparison: Free vs Pro, Urgency: launch-week discount, Guarantee: 14-day no-questions refund, Up-sell path",
+                            key: "Remove risk + add urgency"
+                          },
+                          {
+                            stage: "4",
+                            title: "Retention",
+                            tactics: "Free updates + WaaS ($149/mo)",
+                            key: "Reciprocity triggers purchases"
+                          }
+                        ].map((item, index) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className={`p-3 rounded-lg border transition-all duration-300 hover:scale-105 ${isDarkMode ? 'bg-gray-600 border-gray-500 hover:bg-gray-500' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
+                          >
+                            <div className="flex items-start gap-2">
+                              <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 ${isDarkMode ? 'bg-white text-gray-800' : 'bg-gray-800 text-white'}`}>
+                                {item.stage}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1 mb-1">
+                                  <h4 className={`text-xs font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{item.title}</h4>
+                                </div>
+                                <p className={`text-xs mb-1 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{item.tactics}</p>
+                                <p className={`text-xs italic transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>🔑 {item.key}</p>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      {/* Advocacy Stage - Special Treatment */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className={`mt-3 p-3 rounded-lg border-2 border-dashed transition-colors duration-300 ${isDarkMode ? 'border-gray-500 bg-gray-600' : 'border-gray-300 bg-gray-50'}`}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 ${isDarkMode ? 'bg-white text-gray-800' : 'bg-gray-800 text-white'}`}>5</div>
+                          <h4 className={`text-xs font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Advocacy (Scale)</h4>
                         </div>
-                        <a 
-                          href="https://www.grandviewresearch.com/horizon/outlook/software-as-a-service-saas-market-size/global" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className={`text-xs underline transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'}`}
-                        >
-                          Source: Grand View Research
-                        </a>
+                        <p className={`text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                          Affiliates + Showcases + "Powered by" badge → <span className="italic">Make users feel like insiders</span>
+                        </p>
+                      </motion.div>
+
+                      {/* Flow Summary */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className={`mt-4 pt-3 border-t transition-colors duration-300 ${isDarkMode ? 'border-gray-600' : 'border-gray-200'}`}
+                      >
+                        <div className={`text-xs text-center transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          <span className="font-semibold">Flow:</span> Attract → Nurture → Convert → Retain → Scale
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Competitor Analysis</h3>
+                    <p className={`text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+                      <b>Direct:</b> Framer Marketplace creators. <br/>
+                      <b>Indirect:</b> Gumroad sellers, Webflow, ThemeForest, WordPress, Squarespace, Wix, Shopify, Carrd/Notion/Ghost. <br/>
+                      <b>Gap:</b> Lack of SaaS-focused templates with CRO patterns, advanced design, low cost, and high speed → clear opportunity to dominate.
+                    </p>
+                    <div className="mb-4">
+                      <a href="/Competitor Analysis.pdf" download>
+                        <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Download Full Competitor Analysis (PDF)</Button>
+                      </a>
+                    </div>
+
+                    <h3 className={`text-base md:text-lg font-semibold mb-3 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Revenue & Growth Strategy</h3>
+                    
+                    {/* Revenue Models */}
+                    <div className={`rounded-2xl p-4 mb-4 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
+                      <h4 className={`text-sm font-semibold mb-3 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Monetization</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {[
+                          { title: "Templates", price: "$49–$150", desc: "One-time website templates", icon: "📄" },
+                          { title: "Bundles", price: "$250+", desc: "Website Starter Kit", icon: "📦" },
+                          { title: "Subscription", price: "$19/mo", desc: "Recurring access", icon: "🔄" },
+                          { title: "Custom WaaS", price: "$500–$2k", desc: "Done-for-you", icon: "⚡" }
+                        ].map((item, index) => (
+                          <div key={index} className={`p-3 rounded-lg border transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 border-gray-500' : 'bg-white border-gray-200'}`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-sm">{item.icon}</span>
+                              <span className={`text-xs font-medium transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{item.title}</span>
+                              <span className={`text-xs font-bold ml-auto transition-colors duration-300 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>{item.price}</span>
+                            </div>
+                            <p className={`text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{item.desc}</p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
-                    <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Opportunities</h3>
-                    <ul className={`list-disc list-inside space-y-1 text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                      <li>First-mover SaaS template niche</li>
-                      <li>AI-ready template positioning</li>
-                      <li>Cross-platform expansion (Webflow, WP)</li>
-                      <li>Agency upsell: full SaaS branding packages</li>
-                    </ul>
+                    {/* Growth Opportunities - Compact Swiper */}
+                    <div className={`rounded-2xl p-4 mb-4 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className={`text-sm font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Strategic Opportunities</h4>
+                        <div className="flex items-center gap-1">
+                          <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentOpportunity === 0 ? (isDarkMode ? 'bg-white' : 'bg-gray-800') : (isDarkMode ? 'bg-gray-500' : 'bg-gray-300')}`}></div>
+                          <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentOpportunity === 1 ? (isDarkMode ? 'bg-white' : 'bg-gray-800') : (isDarkMode ? 'bg-gray-500' : 'bg-gray-300')}`}></div>
+                          <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentOpportunity === 2 ? (isDarkMode ? 'bg-white' : 'bg-gray-800') : (isDarkMode ? 'bg-gray-500' : 'bg-gray-300')}`}></div>
+                          <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentOpportunity === 3 ? (isDarkMode ? 'bg-white' : 'bg-gray-800') : (isDarkMode ? 'bg-gray-500' : 'bg-gray-300')}`}></div>
+                          <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentOpportunity === 4 ? (isDarkMode ? 'bg-white' : 'bg-gray-800') : (isDarkMode ? 'bg-gray-500' : 'bg-gray-300')}`}></div>
+                        </div>
+                      </div>
+                      
+                      <div className="relative overflow-hidden">
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={currentOpportunity}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.3 }}
+                            className={`p-3 rounded-lg border transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 border-gray-500' : 'bg-white border-gray-200'}`}
+                          >
+                            {(() => {
+                              const opportunities = [
+                                {
+                                  title: "SaaS Template Niche Dominance",
+                                  insight: "First-mover advantage in SaaS-specific templates with CRO blocks, integrations, changelogs.",
+                                  potential: "Own Framer Marketplace category"
+                                },
+                                {
+                                  title: "AI-Ready Positioning", 
+                                  insight: "Target AI-first startups needing credible sites for investors and early customers.",
+                                  potential: "Growth accelerator templates"
+                                },
+                                {
+                                  title: "Multi-Platform Expansion",
+                                  insight: "Port best-sellers to Webflow, WordPress, ThemeForest for broader reach.",
+                                  potential: "Tens of millions of buyers"
+                                },
+                                {
+                                  title: "Agency Upsell Ladder",
+                                  insight: "Free → Pro → WaaS → Full Branding packages for recurring revenue.",
+                                  potential: "Complete service ecosystem"
+                                },
+                                {
+                                  title: "Community & Affiliates",
+                                  insight: "50% Framer commissions + own affiliate program via Lemon Squeezy.",
+                                  potential: "Network effect distribution"
+                                }
+                              ];
+                              const opp = opportunities[currentOpportunity];
+                              return (
+                                <div className="flex items-start gap-2">
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between mb-1">
+                                      <h5 className={`text-xs font-medium transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{opp.title}</h5>
+                                      <span className={`text-xs px-2 py-0.5 rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 text-gray-200' : 'bg-gray-200 text-gray-700'}`}>{opp.potential}</span>
+                                    </div>
+                                    <p className={`text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{opp.insight}</p>
+                                  </div>
+                                </div>
+                              );
+                            })()}
+                          </motion.div>
+                        </AnimatePresence>
+                      </div>
+                      
+                      {/* Navigation Buttons */}
+                      <div className="flex justify-between mt-3">
+                        <button 
+                          onClick={() => setCurrentOpportunity(prev => prev === 0 ? 4 : prev - 1)}
+                          className={`px-2 py-1 rounded text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
+                        >
+                          ← Prev
+                        </button>
+                        <button 
+                          onClick={() => setCurrentOpportunity(prev => prev === 4 ? 0 : prev + 1)}
+                          className={`px-2 py-1 rounded text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
+                        >
+                          Next →
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -957,7 +1193,7 @@ export default function InvestorDeck() {
                     pricing ($49–$79 each); expand into subscriptions once 10–15 templates exist.
                   </p>
                   <p className={`font-semibold text-xs md:text-sm transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    ✅ Verdict: Low-cost, high-upside. Demand is real, competition unsaturated, 
+                    Verdict: Low-cost, high-upside. Demand is real, competition unsaturated, 
                     success hinges on consistent content + premium quality.
                   </p>
                 </div>
