@@ -65,14 +65,14 @@ export default function InvestorDeck() {
 
   const revenueData = [
     { 
-      name: "Template Sales", 
+      name: "Templates", 
       value: 86940, 
       calculation: "15 sales/mo × $69 × 8 templates",
       details: "1,260 sales total",
       breakdown: "10-30 sales/mo per template"
     },
     { 
-      name: "WaaS Setup", 
+      name: "Setup", 
       value: 7920, 
       calculation: "8 projects × $990",
       details: "One-time setups",
@@ -987,24 +987,26 @@ export default function InvestorDeck() {
                     <div className={`rounded-2xl p-4 mb-6 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
                       {/* Funnel Shape Visualization */}
                       <div className="relative mb-4">
+                        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.3 }}>
                         <svg 
                           width="100%" 
                           height="120" 
                           viewBox="0 0 300 120" 
                           className="overflow-visible"
-                          style={{ maxWidth: '100%', height: 'auto' }}
+                          style={{ maxWidth: '100%' }}
                           preserveAspectRatio="xMidYMid meet"
                         >
                           {/* Funnel Shape */}
                           <motion.path
+                            variants={{
+                              hidden: { opacity: 0, pathLength: 0 },
+                              show:   { opacity: 1, pathLength: 1, transition: { duration: 1.2, ease: 'easeInOut' } }
+                            }}
                             d="M50 20 L250 20 L220 40 L80 40 L190 60 L110 60 L160 80 L140 80 L155 100 L145 100 Z"
                             fill={isDarkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
                             stroke={isDarkMode ? "#9CA3AF" : "#6B7280"}
                             strokeWidth="2"
                             strokeDasharray="5,5"
-                            initial={{ pathLength: 0, opacity: 0 }}
-                            whileInView={{ pathLength: 1, opacity: 1 }}
-                            transition={{ duration: 2 }}
                             vectorEffect="non-scaling-stroke"
                           />
                           
@@ -1017,10 +1019,12 @@ export default function InvestorDeck() {
                             { x: 150, y: 95, stage: "5" }
                           ].map((marker, index) => (
                             <motion.g
+                              variants={{
+                                hidden: { opacity: 0, scale: 0.85 },
+                                show:   { opacity: 1, scale: 1, transition: { delay: index * 0.12 + 0.25, duration: 0.4, ease: 'easeOut' } }
+                              }}
                               key={index}
-                              initial={{ scale: 0, opacity: 0 }}
-                              whileInView={{ scale: 1, opacity: 1 }}
-                              transition={{ delay: index * 0.2 + 0.5 }}
+                              style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}
                             >
                               <circle
                                 cx={marker.x}
@@ -1033,8 +1037,9 @@ export default function InvestorDeck() {
                               />
                               <text
                                 x={marker.x}
-                                y={marker.y + 4}
+                                y={marker.y}
                                 textAnchor="middle"
+                                dominantBaseline="middle"
                                 fontSize="10"
                                 fill={isDarkMode ? "#FFFFFF" : "#111827"}
                                 style={{ userSelect: 'none', pointerEvents: 'none' }}
@@ -1044,6 +1049,7 @@ export default function InvestorDeck() {
                             </motion.g>
                           ))}
                         </svg>
+                        </motion.div>
                       </div>
 
                       {/* Compact Stage Cards */}
