@@ -652,7 +652,7 @@ export default function InvestorDeck() {
                      <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market Demand</h3>
                      <p className={`text-sm md:text-base mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                        "Framer templates" are searched nearly <b>2× more</b> than "Webflow templates."
-                       SaaS market projected at <b>$232B+ by 2028</b> (CAGR ~12%). Every SaaS needs a
+                       SaaS market projected at <b>$232B+ by 2027.</b> Every SaaS needs a
                        fast, credible landing page → consistent demand.
                      </p>
 
@@ -833,18 +833,18 @@ export default function InvestorDeck() {
 
                     {/* Chart: SaaS Market Growth */}
                     <div className={`rounded-2xl p-4 mb-6 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
-                      <h4 className={`text-xs md:text-sm font-semibold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>💰 Global SaaS Market Value (2022-2030)</h4>
+                      <h4 className={`text-xs md:text-sm font-semibold mb-2 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>💰 Global SaaS Market Size (2022-2030)</h4>
                       <ResponsiveContainer width="100%" height={220}>
                         <LineChart data={[
-                          { year: "2022", value: 130, growth: null },
-                          { year: "2023", value: 145, growth: "+12%" },
-                          { year: "2024", value: 164, growth: "+13%" },
-                          { year: "2025", value: 185, growth: "+13%" },
-                          { year: "2026", value: 208, growth: "+12%" },
-                          { year: "2027", value: 233, growth: "+12%" },
-                          { year: "2028", value: 261, growth: "+12%" },
-                          { year: "2029", value: 292, growth: "+12%" },
-                          { year: "2030", value: 327, growth: "+12%" }
+                          { year: "2022", value: 261, growth: null },
+                          { year: "2023", value: 333, growth: "+28%" },
+                          { year: "2024", value: 399, growth: "+20%" },
+                          { year: "2025", value: 464, growth: "+16%" },
+                          { year: "2026", value: 520, growth: "+12%" },
+                          { year: "2027", value: 582, growth: "+12%" },
+                          { year: "2028", value: 652, growth: "+12%" },
+                          { year: "2029", value: 730, growth: "+12%" },
+                          { year: "2030", value: 819, growth: "+12%" }
                         ]}>
                           <XAxis 
                             dataKey="year" 
@@ -856,8 +856,8 @@ export default function InvestorDeck() {
                             tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }}
                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
-                            domain={[100, 350]}
-                            label={{ value: 'Value ($B)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
+                            domain={[200, 900]}
+                            label={{ value: 'Market Size (US$B)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
                           />
                           <Tooltip 
                             content={({ active, payload, label }) => {
@@ -910,26 +910,25 @@ export default function InvestorDeck() {
                       {/* Key Market Insights */}
                       <div className="mt-4 space-y-2 text-xs">
                         <div className="flex items-center gap-2">
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>2024-2028:</span>
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Expected to grow from $164B to $261B</span>
+                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>2024-2030:</span>
+                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Expected to grow from $399B to $819B</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Growth Rate:</span>
-                          <span className="font-semibold text-green-600">~12% CAGR</span> <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>(Compound Annual)</span>
+                          <span className="font-semibold text-green-600">12% CAGR</span> <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>(2025-2030)</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>By 2030:</span>
-                          <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market reaches $327B+ globally</span>
+                          <span className={`font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market reaches $819B+ globally</span>
                         </div>
                       </div>
 
                       <div className={`flex items-center justify-between mt-4 pt-3 border-t transition-colors duration-300 ${isDarkMode ? 'border-gray-600' : 'border-gray-100'}`}>
                         <div className="flex items-center gap-2 text-xs">
-                          <div className={`w-3 h-0.5 rounded transition-colors duration-300 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
-                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Market Value ($B)</span>
+                          <span className={`transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Top Markets: U.S., UK, India, Canada, Germany, France, Australia, Netherlands, China, Spain</span>
                         </div>
                         <a 
-                          href="https://www.grandviewresearch.com/industry-analysis/software-as-a-service-market" 
+                          href="https://www.grandviewresearch.com/horizon/outlook/software-as-a-service-saas-market-size/global" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className={`text-xs underline transition-colors duration-300 ${isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'}`}
