@@ -64,9 +64,34 @@ export default function InvestorDeck() {
   const raisedPercent = Math.max(0, Math.min(100, Math.round((amountRaised / TARGET_AMOUNT) * 100)));
 
   const revenueData = [
-    { name: "Template Sales", value: 30000 },
-    { name: "Subscriptions", value: 5000 },
-    { name: "Custom Services", value: 15000 },
+    { 
+      name: "Template Sales", 
+      value: 86940, 
+      calculation: "15 sales/mo × $69 × 8 templates",
+      details: "1,260 sales total",
+      breakdown: "10-30 sales/mo per template"
+    },
+    { 
+      name: "WaaS Setup", 
+      value: 7920, 
+      calculation: "8 projects × $990",
+      details: "One-time setups",
+      breakdown: "Custom implementations"
+    },
+    { 
+      name: "WaaS Care", 
+      value: 8940, 
+      calculation: "5 clients avg × $149 × 12mo",
+      details: "Recurring revenue",
+      breakdown: "Monthly maintenance"
+    },
+    { 
+      name: "Affiliate", 
+      value: 2880, 
+      calculation: "20 referrals × $12 × 12mo",
+      details: "Framer commissions",
+      breakdown: "Recurring referrals"
+    }
   ];
 
   const container = {
@@ -166,55 +191,68 @@ export default function InvestorDeck() {
 
                   <div className="flex flex-col justify-between">
                     <div className={`rounded-2xl p-4 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
-                      <h3 className={`text-lg md:text-xl font-bold mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>💰 Year 1 Revenue Projection</h3>
-                      <p className={`text-xs md:text-sm mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Conservative estimates based on market research and competitor analysis</p>
-                      <ResponsiveContainer width="100%" height={280}>
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Year 1 Revenue Projection</h3>
+                        <div className={`px-2.5 py-1 rounded-xl transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-gray-700'}`} style={{ fontSize: '10px', lineHeight: '1.3', textAlign: 'center', maxWidth: '80px', wordWrap: 'break-word' }}>
+                          Focus: Template Production
+                        </div>
+                      </div>
+                      <p className={`text-xs mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Detailed breakdown with calculations and assumptions</p>
+                      
+                      {/* Main Chart */}
+                      <ResponsiveContainer width="100%" height={200}>
                         <BarChart data={revenueData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                           <XAxis 
                             dataKey="name" 
-                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }} 
+                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 10 }} 
                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }} 
                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
                           />
                           <YAxis 
-                            domain={[0, 40000]} 
-                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 11 }} 
+                            domain={[0, 90000]} 
+                            tick={{ fill: isDarkMode ? '#E5E7EB' : '#374151', fontSize: 10 }} 
                             axisLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }} 
                             tickLine={{ stroke: isDarkMode ? '#4B5563' : '#E5E7EB' }}
-                            label={{ value: 'Revenue ($)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 11, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
+                            label={{ value: 'Revenue ($)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fontSize: 10, fill: isDarkMode ? '#9CA3AF' : '#6B7280' } }}
                           />
                           <Tooltip 
                             content={({ active, payload, label }) => {
                               if (active && payload && payload.length) {
                                 const data = payload[0].payload;
-                                const total = 50000; // Sum of all revenue streams
+                                const total = 106680;
                                 const percentage = Math.round((data.value / total) * 100);
                                 return (
                                   <div style={{ 
                                     background: isDarkMode ? '#374151' : '#FFFFFF', 
-                                    padding: '16px', 
+                                    padding: '12px', 
                                     borderRadius: '12px', 
                                     border: `1px solid ${isDarkMode ? '#4B5563' : '#E5E7EB'}`,
                                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                    fontSize: '12px',
-                                    minWidth: '180px'
+                                    fontSize: '11px',
+                                    minWidth: '200px'
                                   }}>
-                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '8px' }}>{label}</p>
-                                    <div style={{ marginBottom: '6px' }}>
+                                    <p style={{ fontWeight: 'bold', color: isDarkMode ? '#FFFFFF' : '#374151', marginBottom: '6px' }}>{label}</p>
+                                    <div style={{ marginBottom: '4px' }}>
                                       <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827', fontWeight: 'bold' }}>Revenue:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}>${data.value.toLocaleString()}</span>
                                     </div>
-                                    <div style={{ marginBottom: '6px' }}>
-                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>Share of Total:</span> 
+                                    <div style={{ marginBottom: '4px' }}>
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>Calculation:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>{data.calculation}</span>
+                                    </div>
+                                    <div style={{ marginBottom: '4px' }}>
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>Details:</span> <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>{data.details}</span>
+                                    </div>
+                                    <div style={{ marginBottom: '4px' }}>
+                                      <span style={{ color: isDarkMode ? '#FFFFFF' : '#6B7280' }}>Share:</span> 
                                       <span style={{ 
-                                        marginLeft: '6px', 
+                                        marginLeft: '4px', 
                                         fontWeight: 'bold',
                                         color: '#059669'
                                       }}>
                                         {percentage}%
                                       </span>
                                     </div>
-                                    <div style={{ fontSize: '11px', color: isDarkMode ? '#FFFFFF' : '#6B7280', paddingTop: '4px', borderTop: `1px solid ${isDarkMode ? '#4B5563' : '#F3F4F6'}` }}>
-                                      Monthly: ${Math.round(data.value / 12).toLocaleString()}
+                                    <div style={{ fontSize: '10px', color: isDarkMode ? '#FFFFFF' : '#6B7280', paddingTop: '4px', borderTop: `1px solid ${isDarkMode ? '#4B5563' : '#F3F4F6'}` }}>
+                                      Monthly Avg: ${Math.round(data.value / 12).toLocaleString()}
                                     </div>
                                   </div>
                                 );
@@ -224,35 +262,52 @@ export default function InvestorDeck() {
                           />
                           <Bar 
                             dataKey="value" 
-                            radius={[8, 8, 0, 0]} 
+                            radius={[6, 6, 0, 0]} 
                             fill={isDarkMode ? "#FFFFFF" : "#111827"}
-                          >
-                            {revenueData.map((entry, index) => (
-                              <motion.rect
-                                key={`bar-${index}`}
-                                initial={{ height: 0 }}
-                                animate={{ height: "100%" }}
-                                transition={{ duration: 0.8, delay: index * 0.2 }}
-                              />
-                            ))}
-                          </Bar>
+                          />
                       </BarChart>
                     </ResponsiveContainer>
                       
-                      {/* Revenue Insights */}
-                      <div className="mt-4 space-y-2 text-xs">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-gray-50'}`}>
-                            <div className={`font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>$50K</div>
-                            <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Total Revenue</div>
+                      {/* Key Metrics Grid */}
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                        <div className={`text-center p-2 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-white border border-gray-100'}`}>
+                          <div className={`font-bold text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>$106.7K</div>
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Gross Revenue</div>
+                        </div>
+                        <div className={`text-center p-2 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-white border border-gray-100'}`}>
+                          <div className={`font-bold text-sm text-green-600`}>$79K</div>
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Net Revenue</div>
+                        </div>
+                        <div className={`text-center p-2 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-white border border-gray-100'}`}>
+                          <div className={`font-bold text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>$69</div>
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Avg Template Price</div>
+                        </div>
+                        <div className={`text-center p-2 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-white border border-gray-100'}`}>
+                          <div className={`font-bold text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>81%</div>
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Template Share</div>
+                        </div>
+                      </div>
+                      
+                      {/* Assumptions & Details */}
+                      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div>
+                            <h4 className={`font-semibold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Key Assumptions</h4>
+                            <ul className={`space-y-0.5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                              <li>• 8 templates released staggered</li>
+                              <li>• 10-30 sales/mo per template</li>
+                              <li>• 5 WaaS care clients average</li>
+                              <li>• 20 Framer referrals/year</li>
+                            </ul>
                           </div>
-                          <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-gray-50'}`}>
-                            <div className={`font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>$4.2K</div>
-                            <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Monthly Average</div>
-                          </div>
-                          <div className={`text-center p-3 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-600' : 'bg-gray-50'}`}>
-                            <div className="font-bold text-green-600">60%</div>
-                            <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Template Sales</div>
+                          <div>
+                            <h4 className={`font-semibold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Expense Breakdown</h4>
+                            <ul className={`space-y-0.5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                              <li>• Platform fees: ~7%</li>
+                              <li>• Operations: $600/mo</li>
+                              <li>• Marketing: $800–$1,200/mo</li>
+                              <li>• Total deduction: ~26%</li>
+                            </ul>
                           </div>
                         </div>
                       </div>
@@ -264,7 +319,7 @@ export default function InvestorDeck() {
 
             {page === "roadmap" && (
               <motion.section key="roadmap" variants={container} initial="hidden" animate="show" exit="exit">
-                <h2 className={`text-xl md:text-2xl font-bold mb-6 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>🗺️ Project Roadmap</h2>
+                <h2 className={`text-xl md:text-2xl font-bold mb-6 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Project Roadmap</h2>
 
                 
                 <div className="space-y-6">
@@ -932,7 +987,14 @@ export default function InvestorDeck() {
                     <div className={`rounded-2xl p-4 mb-6 border transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-100'}`}>
                       {/* Funnel Shape Visualization */}
                       <div className="relative mb-4">
-                        <svg width="100%" height="120" viewBox="0 0 300 120" className="overflow-visible">
+                        <svg 
+                          width="100%" 
+                          height="120" 
+                          viewBox="0 0 300 120" 
+                          className="overflow-visible"
+                          style={{ maxWidth: '100%', height: 'auto' }}
+                          preserveAspectRatio="xMidYMid meet"
+                        >
                           {/* Funnel Shape */}
                           <motion.path
                             d="M50 20 L250 20 L220 40 L80 40 L190 60 L110 60 L160 80 L140 80 L155 100 L145 100 Z"
@@ -943,15 +1005,16 @@ export default function InvestorDeck() {
                             initial={{ pathLength: 0, opacity: 0 }}
                             whileInView={{ pathLength: 1, opacity: 1 }}
                             transition={{ duration: 2 }}
+                            vectorEffect="non-scaling-stroke"
                           />
                           
                           {/* Stage Markers */}
                           {[
-                            { x: 150, y: 15, icon: "🎯", stage: "1" },
-                            { x: 150, y: 35, icon: "📧", stage: "2" },
-                            { x: 150, y: 55, icon: "💰", stage: "3" },
-                            { x: 150, y: 75, icon: "🔄", stage: "4" },
-                            { x: 150, y: 95, icon: "🚀", stage: "5" }
+                            { x: 150, y: 15, stage: "1" },
+                            { x: 150, y: 35, stage: "2" },
+                            { x: 150, y: 55, stage: "3" },
+                            { x: 150, y: 75, stage: "4" },
+                            { x: 150, y: 95, stage: "5" }
                           ].map((marker, index) => (
                             <motion.g
                               key={index}
@@ -966,6 +1029,7 @@ export default function InvestorDeck() {
                                 fill={isDarkMode ? "#374151" : "#FFFFFF"}
                                 stroke={isDarkMode ? "#9CA3AF" : "#6B7280"}
                                 strokeWidth="2"
+                                vectorEffect="non-scaling-stroke"
                               />
                               <text
                                 x={marker.x}
@@ -973,6 +1037,7 @@ export default function InvestorDeck() {
                                 textAnchor="middle"
                                 fontSize="10"
                                 fill={isDarkMode ? "#FFFFFF" : "#111827"}
+                                style={{ userSelect: 'none', pointerEvents: 'none' }}
                               >
                                 {marker.stage}
                               </text>
@@ -1152,9 +1217,9 @@ export default function InvestorDeck() {
                               return (
                                 <div className="flex items-start gap-2">
                                   <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-1">
+                                    <div className="flex items-start justify-between mb-1 gap-2">
                                       <h5 className={`text-xs font-medium transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{opp.title}</h5>
-                                      <span className={`text-xs px-2 py-0.5 rounded-full transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 text-gray-200' : 'bg-gray-200 text-gray-700'}`}>{opp.potential}</span>
+                                      <span className={`text-xs px-1.5 py-0.5 rounded-full text-center leading-tight flex-shrink-0 transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 text-gray-200' : 'bg-gray-200 text-gray-700'}`} style={{ fontSize: '10px' }}>{opp.potential}</span>
                                     </div>
                                     <p className={`text-xs transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{opp.insight}</p>
                                   </div>
