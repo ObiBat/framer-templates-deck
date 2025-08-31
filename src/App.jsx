@@ -100,20 +100,25 @@ export default function InvestorDeck() {
     exit: { opacity: 0, y: -10, transition: { duration: 0.25 } },
   };
 
-  const NavButton = ({ id, label }) => (
-    <button
-      onClick={() => {
-        setPage(id);
-      }}
-      className={`px-2.5 py-1.5 rounded-xl text-xs md:text-sm font-medium transition ${
-        page === id
-          ? "bg-black dark:bg-white text-white dark:text-black shadow"
-          : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600"
-      }`}
-    >
-      {label}
-    </button>
-  );
+  const NavButton = ({ id, label, isDarkMode: isDM }) => {
+    const isActive = page === id;
+    const activeClass = isDM
+      ? 'bg-white text-gray-900 border border-gray-600 shadow'
+      : 'bg-gray-700 text-white border border-gray-700 hover:bg-gray-600 shadow';
+    const inactiveClass = isDM
+      ? 'bg-gray-700 text-gray-200 border border-gray-600 hover:bg-gray-600'
+      : 'bg-white text-gray-800 border border-gray-200 hover:bg-gray-100';
+    return (
+      <button
+        onClick={() => {
+          setPage(id);
+        }}
+        className={`px-2.5 py-1.5 rounded-xl text-xs md:text-sm font-medium transition ${isActive ? activeClass : inactiveClass}`}
+      >
+        {label}
+      </button>
+    );
+  };
 
   return (
     <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
@@ -134,11 +139,11 @@ export default function InvestorDeck() {
               </div>
             </div>
             <div className="flex gap-2 flex-wrap items-center">
-            <NavButton id="overview" label="Overview" />
-              <NavButton id="market" label="Market Analysis" />
-            <NavButton id="scale" label="Scale Plan" />
-              <NavButton id="roadmap" label="Roadmap" />
-              <NavButton id="about" label="About Me" />
+            <NavButton id="overview" label="Overview" isDarkMode={isDarkMode} />
+              <NavButton id="market" label="Market Analysis" isDarkMode={isDarkMode} />
+            <NavButton id="scale" label="Scale Plan" isDarkMode={isDarkMode} />
+              <NavButton id="roadmap" label="Roadmap" isDarkMode={isDarkMode} />
+              <NavButton id="about" label="About Me" isDarkMode={isDarkMode} />
               
               {/* Dark Mode Toggle */}
               <button
@@ -717,7 +722,7 @@ export default function InvestorDeck() {
                      <h3 className={`text-base md:text-lg font-semibold mb-1.5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Market Demand</h3>
                      <p className={`text-sm md:text-base mb-4 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                        "Framer templates" are searched nearly <b>2× more</b> than "Webflow templates."
-                       SaaS market projected at <b>$232B+ by 2027.</b> Every SaaS needs a
+                       SaaS market projected at <b>$582B+ by 2027.</b> Every SaaS needs a
                        fast, credible landing page → consistent demand.
                      </p>
 
