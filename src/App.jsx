@@ -1145,7 +1145,13 @@ export default function InvestorDeck() {
                     </p>
                     <div className="mb-4">
                       <a href="/Competitor Analysis.pdf" download>
-                        <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Download Full Competitor Analysis (PDF)</Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`}
+                          isDarkMode={isDarkMode}
+                        >
+                          Download Full Competitor Analysis (PDF)
+                        </Button>
                       </a>
                     </div>
 
