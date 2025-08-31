@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, DollarSign, Target, PlayCircle, Moon, Sun } from "lucide-react";
+import { Users, DollarSign, Target, PlayCircle, Moon, Sun, Copy } from "lucide-react";
 
 
 const ABOUT_PHOTO_URL = "/obi.jpg";
@@ -133,15 +133,15 @@ export default function InvestorDeck() {
       ? 'bg-gray-700 text-gray-200 border border-gray-600 hover:bg-gray-600'
       : 'bg-white text-gray-800 border border-gray-200 hover:bg-gray-100';
     return (
-      <button
+    <button
         onClick={() => {
           setPage(id);
         }}
         className={`px-2.5 py-1.5 rounded-xl text-xs md:text-sm font-medium transition ${isActive ? activeClass : inactiveClass}`}
-      >
-        {label}
-      </button>
-    );
+    >
+      {label}
+    </button>
+  );
   };
 
   return (
@@ -1319,7 +1319,12 @@ export default function InvestorDeck() {
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3 relative">
                       <button onClick={handleCopyEmail} aria-label="Copy email address">
-                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>Email</Button>
+                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>
+                          <span className="inline-flex items-center gap-1">
+                            Email
+                            <Copy className="w-3.5 h-3.5 opacity-90" />
+                          </span>
+                        </Button>
                       </button>
                       <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer">
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>LinkedIn</Button>
@@ -1327,7 +1332,7 @@ export default function InvestorDeck() {
                       {emailCopied && (
                         <div className={`absolute -top-9 left-0 rounded-md px-2 py-1 text-[11px] shadow transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 text-white border border-gray-600' : 'bg-white text-gray-900 border border-gray-200'}`}>
                           Copied! obibatbileg@gmail.com ✔️
-                        </div>
+                    </div>
                       )}
                   </div>
                 </div>
