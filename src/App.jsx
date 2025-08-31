@@ -14,6 +14,7 @@ export default function InvestorDeck() {
   const [amountRaised, setAmountRaised] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentOpportunity, setCurrentOpportunity] = useState(0);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   // Dark mode toggle function
   const toggleDarkMode = () => {
@@ -59,6 +60,29 @@ export default function InvestorDeck() {
     
     return () => clearInterval(interval);
   }, []);
+
+  const handleCopyEmail = async () => {
+    const email = 'obibatbileg@gmail.com';
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = email;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2500);
+    } catch (e) {
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2500);
+    }
+  };
 
   const TARGET_AMOUNT = 10000;
   const raisedPercent = Math.max(0, Math.min(100, Math.round((amountRaised / TARGET_AMOUNT) * 100)));
@@ -697,7 +721,7 @@ export default function InvestorDeck() {
 
                     <div className="flex gap-3 flex-wrap">
                       <a href={PDF_URL} download>
-                        <Button className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Download Full Plan (PDF)</Button>
+                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>Download Full Plan (PDF)</Button>
                       </a>
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" onClick={() => { setPage("roadmap"); }} isDarkMode={isDarkMode}>View Roadmap</Button>
                     </div>
@@ -1293,13 +1317,18 @@ export default function InvestorDeck() {
                   <p className={`text-sm md:text-base leading-relaxed mb-3.5 transition-colors duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                     My vision is to grow this experience into a Framer-driven, no-code, high-speed production approach that evolves into a Creative Tech Consulting firm. The goal is to help small to medium-sized businesses improve their digital presence by offering accessible services in web development, design, and scalable SaaS solutions—supporting SMEs in streamlining their operations and building stronger brands.
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                      <a href="mailto:hello@obii.tech" target="_blank" rel="noreferrer">
-                      <Button className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>Email</Button>
-                      </a>
+                  <div className="mt-4 flex flex-wrap gap-3 relative">
+                      <button onClick={handleCopyEmail} aria-label="Copy email address">
+                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>Email</Button>
+                      </button>
                       <a href="https://www.linkedin.com/in/obi-batbileg" target="_blank" rel="noreferrer">
                       <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" isDarkMode={isDarkMode}>LinkedIn</Button>
                       </a>
+                      {emailCopied && (
+                        <div className={`absolute -top-9 left-0 rounded-md px-2 py-1 text-[11px] shadow transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 text-white border border-gray-600' : 'bg-white text-gray-900 border border-gray-200'}`}>
+                          Copied! obibatbileg@gmail.com ✔️
+                        </div>
+                      )}
                   </div>
                 </div>
               </motion.section>
