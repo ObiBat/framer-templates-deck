@@ -150,12 +150,22 @@ export default function InvestorDeck() {
         <div className={`px-5 pt-5 md:px-6 md:pt-6 transition-colors duration-300 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-              <motion.img 
+              <motion.div 
                 initial={{ scale: 0.9, opacity: 0 }} 
                 animate={{ scale: 1, opacity: 1 }} 
-                src="/logo.png" 
-                alt="Logo" 
-                className={`h-9 w-9 md:h-10 md:w-10 object-contain transition-all duration-300 ${isDarkMode ? 'brightness-0 invert' : ''}`}
+                aria-label="Logo"
+                className={`h-9 w-9 md:h-10 md:w-10 transition-all duration-300`}
+                style={{
+                  WebkitMaskImage: 'url(/logo.png)',
+                  maskImage: 'url(/logo.png)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                  WebkitMaskPosition: 'center',
+                  maskPosition: 'center',
+                  backgroundColor: isDarkMode ? '#FFFFFF' : '#374151'
+                }}
               />
             <div>
                 <h1 className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>Premium Framer templates & Custom Services</h1>
@@ -721,9 +731,8 @@ export default function InvestorDeck() {
 
                     <div className="flex gap-3 flex-wrap">
                       <a href={PDF_URL} download>
-                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>Download Full Plan (PDF)</Button>
+                        <Button variant="outline" className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>Download Full Plan (PDF)</Button>
                       </a>
-                      <Button variant="outline" className="rounded-xl text-xs md:text-sm px-3 py-1.5" onClick={() => { setPage("roadmap"); }} isDarkMode={isDarkMode}>View Roadmap</Button>
                     </div>
                   </div>
                 </div>
@@ -1319,7 +1328,7 @@ export default function InvestorDeck() {
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3 relative">
                       <button onClick={handleCopyEmail} aria-label="Copy email address">
-                        <Button className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>
+                        <Button variant="outline" className={`rounded-xl text-xs md:text-sm px-3 py-1.5 ambient-attention ${isDarkMode ? 'ambient-dark' : 'ambient-light'}`} isDarkMode={isDarkMode}>
                           <span className="inline-flex items-center gap-1">
                             Email
                             <Copy className="w-3.5 h-3.5 opacity-90" />
